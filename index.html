@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>MACROS CALCULATOR</title>
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="container">
+        <article class="articulo">
+            <h1>MACRO CALCULATOR</h1>
+            <p>To calculate your daily calorie and macro goals, simply fill out the information on my calculator
+                below!</p>
+            <section class="macro-calculator form-group">
+
+                <form name="myForm" method="POST" action="" id="form">
+                    
+                    <!-- GROUP 0 -->
+                    <div class="field field-0">
+                        <p>GENDER</p>
+                        <label class="male">
+                            <input type="radio" name="gender" id="male" class="form-check-input">
+                            <span>Male</span>
+                        </label>
+
+                        <label class="female">
+                            <input type="radio" name="gender" id="female" class="form-check-input">
+                            <span>Female</span>
+                        </label>
+                    </div>
+
+                    <!-- GROUP 1 -->
+                    <div class="field field-1">
+
+                        <!-- Age -->
+                        <div class="age">
+                            <p>AGE</p>
+                            <input type="text" name="age" id="age">
+                        </div>
+
+                        <!-- Weight -->
+                        <div class="weight">
+                            <p>WEIGHT</p>
+                            <label class="kg">
+                                <input type="text" id="weight" maxlength="3">
+                                Kg
+                            </label>
+                        </div>
+
+                        <!-- height -->
+                        <div class="height">
+                            <p>HEIGHT</p>
+                            <label class="kg">
+                                <input type="text" id="height" maxlength="3">
+                                Cm
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- GROUP 2 -->
+                    <div class="field field-2">
+                        <div class="activity">
+                            <p>EXERCISE LEVEL</p>
+                            <label class="sedentary">
+                                <input type="radio" name="activity" id="sedentary" class="form-check-input">
+                                <span>Sedentary</span>
+                                <em>(No exercise)</em>
+                            </label>
+
+                            <label class="moderate">
+                                <input type="radio" name="activity" id="moderate" class="form-check-input">
+                                <span>Moderate</span>
+                                <em>(3x - 4x per week)</em>
+                            </label>
+
+                            <label class="active">
+                                <input type="radio" name="activity" checked id="active" class="form-check-input">
+                                <span>Active</span>
+                                <em>(5x+ per week)</em>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- GROUP 3 -->
+                    <div class="field field-3">
+                        <div class="goal">
+                            <p>PRIMARY GOAL</p>
+                            <label class="lose">
+                                <input type="radio" name="goal" value="lose" id="lose" class="form-check-input">
+                                <span>Lose weight</span>
+                            </label>
+                            <label class="gain">
+                                <input type="radio" name="goal" value="gain" id="gain" class="form-check-input">
+                                <span>Gain</span>
+                            </label>
+                            <label class="recomp">
+                                <input type="radio" name="goal" value="recomp" id="recomp" class="form-check-input">
+                                <span>Recomp</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-lg btn-success" type="submit">Calculate</button>
+                </form>
+
+                <div class="section bottom">
+                    <article id="result">
+                        <!-- <h2>RESULTS</h2> -->
+                    </article>
+                </div>
+            </section>
+        </article>
+    </div>
+
+</body>
+
+</html>

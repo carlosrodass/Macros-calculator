@@ -1,0 +1,100 @@
+/* Color Theme Swatches in Hex */
+$Top-view-of-many-colorful-balls-in-ball-pool-at-indoors-playground-1-hex: #F2059F; 
+$Top-view-of-many-colorful-balls-in-ball-pool-at-indoors-playground-2-hex: #05DBF2;
+$Top-view-of-many-colorful-balls-in-ball-pool-at-indoors-playground-3-hex: #04D94F;
+$Top-view-of-many-colorful-balls-in-ball-pool-at-indoors-playground-4-hex: #F2CB05;
+$Top-view-of-many-colorful-balls-in-ball-pool-at-indoors-playground-5-hex: #F28705;
+$Background-color: #e3e6e1c2;
+
+
+$title-size: 5vh;
+$title-weight: lighter;
+$title-color: rgb(33, 31, 31);
+
+$p-size: 2.5vh;
+$p-weight: lighter;
+$p-color: rgb(46, 46, 46);
+$p-family: Arial, Helvetica, sans-serif;
+
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+#container{
+    width: 80%;
+    height: 90vh;
+    margin: 30px auto;
+    border-radius: 10px;
+}
+
+.articulo{
+    padding: 10px;
+    h1{
+        font-size: $title-size;
+        font-weight: $title-weight;
+        color: $title-color;
+        margin-bottom: 2vh;
+    };
+    p{
+        font-size: $p-size;
+        font-weight: $p-weight;
+        font-family: $p-family;
+        color: $p-color;
+        margin-bottom: 2vh;
+    }
+}
+
+.field{
+    width: 100%;
+    margin: 20px 0px;
+    padding: 20px;
+    // border-radius: 10px;
+    // border: 1px solid black;
+}
+
+.field-1{
+    background-color: $Background-color;
+    width: 100%;
+    overflow: hidden;
+
+    .age{
+        display: block;
+        width: 30%;
+        float: left;
+    }
+
+    .weight{
+        display: block;
+        width: 30%;
+        float: left;
+    }
+
+    .height{
+        display: block;
+        width: 30%;
+        float: left;
+    }
+}
+
+
+.field-0{
+    background-color: $Background-color;
+}
+
+
+.field-2{
+    background-color: $Background-color;
+}
+
+.field-3{
+    background-color: $Background-color;
+}
+
+
+
+
+
+

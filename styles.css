@@ -1,0 +1,71 @@
+/* Color Theme Swatches in Hex */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+#container {
+  width: 80%;
+  height: 90vh;
+  margin: 30px auto;
+  border-radius: 10px;
+}
+
+.articulo {
+  padding: 10px;
+}
+.articulo h1 {
+  font-size: 5vh;
+  font-weight: lighter;
+  color: #211f1f;
+  margin-bottom: 2vh;
+}
+.articulo p {
+  font-size: 2.5vh;
+  font-weight: lighter;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2e2e2e;
+  margin-bottom: 2vh;
+}
+
+.field {
+  width: 100%;
+  margin: 20px 0px;
+  padding: 20px;
+}
+
+.field-1 {
+  background-color: #e3e6e1c2;
+  width: 100%;
+  overflow: hidden;
+}
+.field-1 .age {
+  display: block;
+  width: 30%;
+  float: left;
+}
+.field-1 .weight {
+  display: block;
+  width: 30%;
+  float: left;
+}
+.field-1 .height {
+  display: block;
+  width: 30%;
+  float: left;
+}
+
+.field-0 {
+  background-color: #e3e6e1c2;
+}
+
+.field-2 {
+  background-color: #e3e6e1c2;
+}
+
+.field-3 {
+  background-color: #e3e6e1c2;
+}
+
+/*# sourceMappingURL=styles.css.map */
