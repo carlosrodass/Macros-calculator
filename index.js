@@ -9,21 +9,57 @@ window.addEventListener('load', function () {
     // Radio buttons gender
     var male = document.getElementById('male');
     var female = document.getElementById('female');
-
     // Radio buttons Exercise level
     var sedentary = document.getElementById('sedentary');
     var moderate = document.getElementById('moderate');
     var active = document.getElementById('active');
-
     // Radio buttons Goal
     var lose = document.getElementById('lose');
     var gain = document.getElementById('gain');
     var recomp = document.getElementById('recomp');
-
+    var btn = document.getElementById('btn');
+    // Result
+    var result = this.document.getElementById('result');
+    // Activities
     var sedentaryActivity = 1.2;
     var moderateActivity = 1.6;
     var activeActivity = 1.8;
 
+
+    const totalsName = ["Proteins", "Fats", "Carbohydrates"];
+
+    var carboss = document.createElement("img");
+    var prott = document.createElement("img");
+    var fatss = document.createElement("img");
+
+    carboss.style = {
+        height: '25%',
+        width: '25%'
+    }
+
+    carboss.src = "./images/carbohydrates.png";
+    const carbo = carboss;
+
+    
+    prott.style = {
+        height: '25%',
+        width: '25%'
+    }
+
+    prott.src = "./images/protein.png";
+    const proteina = prott;
+
+    
+    fatss.style = {
+        height: '25%',
+        width: '25%'
+    }
+
+    fatss.src = "./images/fat.png";
+    const fatsss = fatss;
+
+
+    var elementsI = [proteina, fatsss, carbo];
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -40,74 +76,268 @@ window.addEventListener('load', function () {
         return total;
     }
 
-    function calculateMacros(calories, weight) {
-        var proteinGrams = weight * 2.5;
-        var fatGrams = weight * 1;
-        var carboCalories = calories - ((proteinGrams * 4) + (fatGrams * 9));
-        console.log(carboCalories);
-        var carboGrams = carboCalories / 4;
 
-        console.log(proteinGrams, fatGrams, carboGrams);
+    function loseWeightMacros(calories, weight) {
+        var proteinGrams = weight * 2.5; //Gramos de proteina || cada gramo de proteina son 4kcal 
+        var fatGrams = weight * 1; //Gramos de Grasa || cada gramo de Grasa son 9kcal 
+        var grassProteinCalories = ((proteinGrams * 4) + (fatGrams * 9));
+        var carboCalories = calories - grassProteinCalories;
+        var carboGrams = carboCalories / 4;
+        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams }
+    }
+
+    function gainWeightMacros(calories, weight) {
+        var proteinGrams = weight * 2; //Gramos de proteina || cada gramo de proteina son 4kcal 
+        var fatGrams = weight * 1.5; //Gramos de Grasa || cada gramo de Grasa son 9kcal 
+        var grassProteinCalories = ((proteinGrams * 4) + (fatGrams * 9));
+        var carboCalories = calories - grassProteinCalories;
+        var carboGrams = carboCalories / 4;
+        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams }
+    }
+
+
+    function mantainWeightMacros(calories, weight) {
+        var proteinGrams = weight * 2.5; //Gramos de proteina || cada gramo de proteina son 4kcal 
+        var fatGrams = weight * 0.5; //Gramos de Grasa || cada gramo de Grasa son 9kcal 
+        var grassProteinCalories = ((proteinGrams * 4) + (fatGrams * 9));
+        var carboCalories = calories - grassProteinCalories;
+        var carboGrams = carboCalories / 4;
+        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams }
+    }
+
+
+    function commonWomenLoseWeight(frequencyActivity) {
+        var bmr = calculateBmrWomen(weight.value, height.value, age.value);
+        var caloriesPerDay = bmr * frequencyActivity;
+        var losewe = caloriesPerDay * 0.2;
+        var total = caloriesPerDay - losewe;
+        const macros = loseWeightMacros(total, weight.value);
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams];
+        result.style.display = "block";
+
+        for (let i = 0; i < totals.length; i++) {
+
+            var newDiv = document.createElement("div");
+        
+
+            newDiv.appendChild(elementsI[i]);
+
+            var macroElement = document.createElement("h4");
+            var macroText = document.createTextNode(totalsName[i]);
+
+            macroElement.appendChild(macroText);
+            newDiv.appendChild(macroElement);
+
+            var parrafo = document.createElement("p");
+            var texto = document.createTextNode(totals[i]);
+
+            parrafo.appendChild(texto);
+            newDiv.appendChild(parrafo);
+
+            result.appendChild(newDiv);
+
+        }
+        btn.disabled = true;
+    }
+
+
+    function commonWomenGainWeigth(frequencyActivity) {
+        var bmr = calculateBmrWomen(weight.value, height.value, age.value);
+        var caloriesPerDay = bmr * frequencyActivity;
+        var gainWeight = caloriesPerDay * 0.2;
+        var total = caloriesPerDay + gainWeight;
+        const macros = gainWeightMacros(total, weight.value);
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        result.style.display = "block";
+
+        for (let i = 0; i < totals.length; i++) {
+
+            var newDiv = document.createElement("div");
+            
+            newDiv.appendChild(elementsI[i]);
+
+            var macroElement = document.createElement("h4");
+            var macroText = document.createTextNode(totalsName[i]);
+
+            macroElement.appendChild(macroText);
+            newDiv.appendChild(macroElement);
+
+            var parrafo = document.createElement("p");
+            var texto = document.createTextNode(totals[i]);
+
+            parrafo.appendChild(texto);
+            newDiv.appendChild(parrafo);
+
+            result.appendChild(newDiv);
+        }
+        btn.disabled = true;
+
+    }
+
+    function commonWomenMantainWeight(frequencyActivity) {
+        var bmr = calculateBmrWomen(weight.value, height.value, age.value);
+        var caloriesPerDay = bmr * frequencyActivity;
+        const macros = mantainWeightMacros(caloriesPerDay, weight.value);
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        result.style.display = "block";
+
+        for (let i = 0; i < totals.length; i++) {
+
+            var newDiv = document.createElement("div");
+            
+            newDiv.appendChild(elementsI[i]);
+
+            // var caloriess = document.createElement("h1");
+            // var caloria = document.createTextNode(caloriesPerDay);
+            // caloriess.appendChild(caloria)
+            // newDiv.appendChild(caloriess);
+
+            var macroElement = document.createElement("h4");
+            var macroText = document.createTextNode(totalsName[i]);
+
+            
+            macroElement.appendChild(macroText);
+            newDiv.appendChild(macroElement);
+
+            var parrafo = document.createElement("p");
+            var texto = document.createTextNode(totals[i]);
+
+            parrafo.appendChild(texto);
+            newDiv.appendChild(parrafo);
+
+            result.appendChild(newDiv);
+        }
+        btn.disabled = true;
+    }
+
+
+    function commonMenLoseWeight(frequencyActivity) {
+        var bmr = calculateBmrMen(weight.value, height.value, age.value);
+        var caloriesPerDay = bmr * frequencyActivity;
+        var losewe = caloriesPerDay * 0.2;
+        var total = caloriesPerDay - losewe;
+        const macros = loseWeightMacros(total, weight.value);
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        result.style.display = "block";
+
+        for (let i = 0; i < totals.length; i++) {
+
+            var newDiv = document.createElement("div");
+            
+            newDiv.appendChild(elementsI[i]);
+
+            var macroElement = document.createElement("h4");
+            var macroText = document.createTextNode(totalsName[i]);
+
+            macroElement.appendChild(macroText);
+            newDiv.appendChild(macroElement);
+
+            var parrafo = document.createElement("p");
+            var texto = document.createTextNode(totals[i]);
+
+            parrafo.appendChild(texto);
+            newDiv.appendChild(parrafo);
+
+            result.appendChild(newDiv);
+
+        }
+        btn.disabled = true;
+    }
+
+
+    function commonMenGainWeight(frequencyActivity) {
+        var bmr = calculateBmrMen(weight.value, height.value, age.value);
+        var caloriesPerDay = bmr * frequencyActivity;
+        var gainWeight = caloriesPerDay * 0.2;
+        var total = caloriesPerDay + gainWeight;
+        const macros = gainWeightMacros(total, weight.value);
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        result.style.display = "block";
+
+        for (let i = 0; i < totals.length; i++) {
+
+            var newDiv = document.createElement("div");
+            
+            newDiv.appendChild(elementsI[i]);
+
+            var macroElement = document.createElement("h4");
+            var macroText = document.createTextNode(totalsName[i]);
+
+            macroElement.appendChild(macroText);
+            newDiv.appendChild(macroElement);
+
+            var parrafo = document.createElement("p");
+            var texto = document.createTextNode(totals[i]);
+
+            parrafo.appendChild(texto);
+            newDiv.appendChild(parrafo);
+
+            result.appendChild(newDiv);
+
+        }
+        btn.disabled = true;
+    }
+
+
+    function commonMenMantainWeight(frequencyActivity) {
+        var bmr = calculateBmrMen(weight.value, height.value, age.value);
+        var caloriesPerDay = bmr * frequencyActivity;
+        const macros = mantainWeightMacros(caloriesPerDay, weight.value);
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        result.style.display = "block";
+
+        for (let i = 0; i < totals.length; i++) {
+
+            var newDiv = document.createElement("div");
+            
+            newDiv.appendChild(elementsI[i]);
+
+            var macroElement = document.createElement("h4");
+            var macroText = document.createTextNode(totalsName[i]);
+
+            macroElement.appendChild(macroText);
+            newDiv.appendChild(macroElement);
+
+            var parrafo = document.createElement("p");
+            var texto = document.createTextNode(totals[i]);
+
+            parrafo.appendChild(texto);
+            newDiv.appendChild(parrafo);
+
+            result.appendChild(newDiv);
+
+        }
+        btn.disabled = true;
     }
 
     function isFemale() {
         //PERDER PESO
         if (lose.checked === true && gain.checked === false && recomp.checked == false) {
             if (sedentary.checked === true && moderate.checked === false && active.checked == false) {
-                console.log("soy mujer, PERDER PESO, SEDENTARIA ", age.value, height.value, weight.value);
-                // TASA METABOLICA BASAL
-                var bmr = calculateBmrWomen(weight.value, height.value, age.value);
-                // TASA METABOLICA BASAL * ACTIVIDAD = CONSUMO CALORIAS POR DIA
-                var caloriesPerDay = bmr * sedentaryActivity;
-                // CALCULANDO MACROS Y CALORIAS A CONSUMIR PARA PERDER PESO CON RATIO 40 PRO 30 GRASS 30 CARBO
-                var losewe = caloriesPerDay * 0.2;
-                
-                var total = caloriesPerDay - losewe;
-
-                calculateMacros(total, weight.value);
-
+                commonWomenLoseWeight(sedentaryActivity)
             } else if (active.checked === true && moderate.checked === false && recomp.checked == false) {
-                console.log("soy mujer PERDER PESO, ACTIVA ", age.value, height.value, weight.value);
-
-                // FORMULA GENERAL DE LAS CALORIAS QUE SU CUERPO CONSUME SIENDO ACTIVA
-
-                // RESULTADO OPERADO POR LA META DE PERDER PESO
+                commonWomenLoseWeight(activeActivity);
             } else {
-                console.log("soy mujer PERDER PESO, MODERADA ", age.value, height.value, weight.value);
-
-                // FORMULA GENERAL DE LAS CALORIAS QUE SU CUERPO CONSUME SIENDO MODERADA
-
-                // RESULTADO OPERADO POR LA META DE PERDER PESO
+                commonWomenLoseWeight(moderateActivity);
             }
             //GANAR PESO 
         } else if (gain.checked === true && lose.checked === false && recomp.checked == false) {
             if (sedentary.checked === true && moderate.checked === false && active.checked == false) {
-                console.log("soy mujer, GANAR PESO, SEDENTARIA ", age.value, height.value, weight.value);
-
-                // FORMULA GENERAL DE LAS CALORIAS QUE SU CUERPO CONSUME SIENDO SEDENTARIA
-
-                // RESULTADO OPERADO POR LA META DE GANAR PESO
+                commonWomenGainWeigth(sedentaryActivity);
             } else if (active.checked === true && moderate.checked === false && recomp.checked == false) {
-                console.log("soy mujer, GANAR PESO, ACTIVA ", age.value, height.value, weight.value);
-
-                // FORMULA GENERAL DE LAS CALORIAS QUE SU CUERPO CONSUME SIENDO ACTIVA
-
-                // RESULTADO OPERADO POR LA META DE GANAR PESO
+                commonWomenGainWeigth(activeActivity);
             } else {
-                console.log("soy mujer, GANAR PESO, MODERADA ", age.value, height.value, weight.value);
-
-                // FORMULA GENERAL DE LAS CALORIAS QUE SU CUERPO CONSUME SIENDO MODERADA
-
-                // RESULTADO OPERADO POR LA META DE GANAR PESO
+                commonWomenGainWeigth(moderateActivity);
             }
             //RECOMPONER PESO
         } else {
+            console.log("aqui");
             if (sedentary.checked === true && moderate.checked === false && active.checked == false) {
-                console.log("soy mujer, RECOMPONER PESO, SEDENTARIA ", age.value, height.value, weight.value);
+                commonWomenMantainWeight(sedentaryActivity);
             } else if (active.checked === true && moderate.checked === false && recomp.checked == false) {
-                console.log("soy mujer, RECOMPONER PESO, ACTIVA ", age.value, height.value, weight.value);
+                commonWomenMantainWeight(activeActivity);
             } else {
-                console.log("soy mujer, RECOMPONER PESO, MODERADA ", age.value, height.value, weight.value);
+                commonWomenMantainWeight(moderateActivity);
             }
         }
     }
@@ -117,29 +347,29 @@ window.addEventListener('load', function () {
         if (lose.checked === true && gain.checked === false && recomp.checked == false) {
             // Comprobando actividad
             if (sedentary.checked === true && moderate.checked === false && active.checked == false) {
-                console.log("soy HOMBRE, PERDER PESO, SEDENTARIO ", age.value, height.value, weight.value);
+                commonMenLoseWeight(sedentaryActivity);
             } else if (active.checked === true && moderate.checked === false && recomp.checked == false) {
-                console.log("soy HOMBRE PERDER PESO, ACTIVO ", age.value, height.value, weight.value);
+                commonMenLoseWeight(activeActivity);
             } else {
-                console.log("soy HOMBRE PERDER PESO, MODERADO ", age.value, height.value, weight.value);
+                commonMenLoseWeight(moderateActivity);
             }
         } else if (gain.checked === true && lose.checked === false && recomp.checked == false) {
             // Comprobando actividad
             if (sedentary.checked === true && moderate.checked === false && active.checked == false) {
-                console.log("soy HOMBRE, GANAR PESO, SEDENTARIO ", age.value, height.value, weight.value);
+                commonMenGainWeight(sedentaryActivity);
             } else if (active.checked === true && moderate.checked === false && recomp.checked == false) {
-                console.log("soy HOMBRE, GANAR PESO, ACTIVO ", age.value, height.value, weight.value);
+                commonMenGainWeigth(activeActivity);
             } else {
-                console.log("soy HOMBRE, GANAR PESO, MODERADO ", age.value, height.value, weight.value);
+                commonMenGainWeight(moderateActivity);
             }
         } else {
             // Comprobando actividad
             if (sedentary.checked === true && moderate.checked === false && active.checked == false) {
-                console.log("soy HOMBRE, RECOMPONER PESO, SEDENTARIO ", age.value, height.value, weight.value);
+                commonMenMantainWeight(sedentaryActivity);
             } else if (active.checked === true && moderate.checked === false && recomp.checked == false) {
-                console.log("soy HOMBRE, RECOMPONER PESO, ACTIVO ", age.value, height.value, weight.value);
+                commonMenMantainWeight(activeActivity);
             } else {
-                console.log("soy HOMBRE, RECOMPONER PESO, MODERADO ", age.value, height.value, weight.value);
+                commonMenMantainWeight(moderateActivity);
             }
         }
     }
@@ -158,7 +388,7 @@ window.addEventListener('load', function () {
                     return;
                 } else { // ES MUJER
                     if (female.checked == true) {
-                        isFemale();                        
+                        isFemale();
                     } else { // ES HOMBRE
                         isMale();
                     }
