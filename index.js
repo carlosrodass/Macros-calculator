@@ -26,11 +26,12 @@ window.addEventListener('load', function () {
     var activeActivity = 1.8;
 
 
-    const totalsName = ["Proteins", "Fats", "Carbohydrates"];
+    const totalsName = ["Proteins", "Fats", "Carbos", "Total Kcal"];
 
     var carboss = document.createElement("img");
     var prott = document.createElement("img");
     var fatss = document.createElement("img");
+    var totalCalories = document.createElement("img");
 
     carboss.style = {
         height: '25%',
@@ -40,7 +41,7 @@ window.addEventListener('load', function () {
     carboss.src = "./images/carbohydrates.png";
     const carbo = carboss;
 
-    
+
     prott.style = {
         height: '25%',
         width: '25%'
@@ -49,7 +50,7 @@ window.addEventListener('load', function () {
     prott.src = "./images/protein.png";
     const proteina = prott;
 
-    
+
     fatss.style = {
         height: '25%',
         width: '25%'
@@ -58,8 +59,15 @@ window.addEventListener('load', function () {
     fatss.src = "./images/fat.png";
     const fatsss = fatss;
 
+    totalCalories.src = "./images/calorias.png";
 
-    var elementsI = [proteina, fatsss, carbo];
+    totalCalories.style = {
+        height: '25%',
+        width: '25%'
+    }
+
+
+    var elementsI = [proteina, fatsss, carbo, totalCalories];
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -83,7 +91,7 @@ window.addEventListener('load', function () {
         var grassProteinCalories = ((proteinGrams * 4) + (fatGrams * 9));
         var carboCalories = calories - grassProteinCalories;
         var carboGrams = carboCalories / 4;
-        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams }
+        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams, kcal: calories }
     }
 
     function gainWeightMacros(calories, weight) {
@@ -92,7 +100,7 @@ window.addEventListener('load', function () {
         var grassProteinCalories = ((proteinGrams * 4) + (fatGrams * 9));
         var carboCalories = calories - grassProteinCalories;
         var carboGrams = carboCalories / 4;
-        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams }
+        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams, kcal: calories }
     }
 
 
@@ -102,7 +110,7 @@ window.addEventListener('load', function () {
         var grassProteinCalories = ((proteinGrams * 4) + (fatGrams * 9));
         var carboCalories = calories - grassProteinCalories;
         var carboGrams = carboCalories / 4;
-        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams }
+        return { proteinGrams: proteinGrams, fatGrams: fatGrams, carboGrams: carboGrams, kcal: calories }
     }
 
 
@@ -112,13 +120,13 @@ window.addEventListener('load', function () {
         var losewe = caloriesPerDay * 0.2;
         var total = caloriesPerDay - losewe;
         const macros = loseWeightMacros(total, weight.value);
-        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams];
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams, macros.kcal];
         result.style.display = "block";
 
         for (let i = 0; i < totals.length; i++) {
 
             var newDiv = document.createElement("div");
-        
+
 
             newDiv.appendChild(elementsI[i]);
 
@@ -133,6 +141,12 @@ window.addEventListener('load', function () {
 
             parrafo.appendChild(texto);
             newDiv.appendChild(parrafo);
+
+            var size = document.createElement("i");
+            var sizeText = document.createTextNode("Grams");
+
+            size.appendChild(sizeText);
+            newDiv.appendChild(size);
 
             result.appendChild(newDiv);
 
@@ -147,13 +161,13 @@ window.addEventListener('load', function () {
         var gainWeight = caloriesPerDay * 0.2;
         var total = caloriesPerDay + gainWeight;
         const macros = gainWeightMacros(total, weight.value);
-        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams, macros.kcal]
         result.style.display = "block";
 
         for (let i = 0; i < totals.length; i++) {
 
             var newDiv = document.createElement("div");
-            
+
             newDiv.appendChild(elementsI[i]);
 
             var macroElement = document.createElement("h4");
@@ -164,6 +178,12 @@ window.addEventListener('load', function () {
 
             var parrafo = document.createElement("p");
             var texto = document.createTextNode(totals[i]);
+
+            var size = document.createElement("i");
+            var sizeText = document.createTextNode("Grams");
+
+            size.appendChild(sizeText);
+            newDiv.appendChild(size);
 
             parrafo.appendChild(texto);
             newDiv.appendChild(parrafo);
@@ -178,24 +198,19 @@ window.addEventListener('load', function () {
         var bmr = calculateBmrWomen(weight.value, height.value, age.value);
         var caloriesPerDay = bmr * frequencyActivity;
         const macros = mantainWeightMacros(caloriesPerDay, weight.value);
-        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams, macros.kcal]
         result.style.display = "block";
 
         for (let i = 0; i < totals.length; i++) {
 
             var newDiv = document.createElement("div");
-            
-            newDiv.appendChild(elementsI[i]);
 
-            // var caloriess = document.createElement("h1");
-            // var caloria = document.createTextNode(caloriesPerDay);
-            // caloriess.appendChild(caloria)
-            // newDiv.appendChild(caloriess);
+            newDiv.appendChild(elementsI[i]);
 
             var macroElement = document.createElement("h4");
             var macroText = document.createTextNode(totalsName[i]);
 
-            
+
             macroElement.appendChild(macroText);
             newDiv.appendChild(macroElement);
 
@@ -204,6 +219,12 @@ window.addEventListener('load', function () {
 
             parrafo.appendChild(texto);
             newDiv.appendChild(parrafo);
+
+            var size = document.createElement("i");
+            var sizeText = document.createTextNode("Grams");
+
+            size.appendChild(sizeText);
+            newDiv.appendChild(size);
 
             result.appendChild(newDiv);
         }
@@ -217,13 +238,13 @@ window.addEventListener('load', function () {
         var losewe = caloriesPerDay * 0.2;
         var total = caloriesPerDay - losewe;
         const macros = loseWeightMacros(total, weight.value);
-        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams, macros.kcal]
         result.style.display = "block";
 
         for (let i = 0; i < totals.length; i++) {
 
             var newDiv = document.createElement("div");
-            
+
             newDiv.appendChild(elementsI[i]);
 
             var macroElement = document.createElement("h4");
@@ -237,6 +258,12 @@ window.addEventListener('load', function () {
 
             parrafo.appendChild(texto);
             newDiv.appendChild(parrafo);
+
+            var size = document.createElement("i");
+            var sizeText = document.createTextNode("Grams");
+
+            size.appendChild(sizeText);
+            newDiv.appendChild(size);
 
             result.appendChild(newDiv);
 
@@ -251,13 +278,13 @@ window.addEventListener('load', function () {
         var gainWeight = caloriesPerDay * 0.2;
         var total = caloriesPerDay + gainWeight;
         const macros = gainWeightMacros(total, weight.value);
-        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams, macros.kcal]
         result.style.display = "block";
 
         for (let i = 0; i < totals.length; i++) {
 
             var newDiv = document.createElement("div");
-            
+
             newDiv.appendChild(elementsI[i]);
 
             var macroElement = document.createElement("h4");
@@ -271,6 +298,12 @@ window.addEventListener('load', function () {
 
             parrafo.appendChild(texto);
             newDiv.appendChild(parrafo);
+
+            var size = document.createElement("i");
+            var sizeText = document.createTextNode("Grams");
+
+            size.appendChild(sizeText);
+            newDiv.appendChild(size);
 
             result.appendChild(newDiv);
 
@@ -283,13 +316,13 @@ window.addEventListener('load', function () {
         var bmr = calculateBmrMen(weight.value, height.value, age.value);
         var caloriesPerDay = bmr * frequencyActivity;
         const macros = mantainWeightMacros(caloriesPerDay, weight.value);
-        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams]
+        const totals = [macros.proteinGrams, macros.fatGrams, macros.carboGrams, macros.kcal]
         result.style.display = "block";
 
         for (let i = 0; i < totals.length; i++) {
 
             var newDiv = document.createElement("div");
-            
+
             newDiv.appendChild(elementsI[i]);
 
             var macroElement = document.createElement("h4");
@@ -303,6 +336,12 @@ window.addEventListener('load', function () {
 
             parrafo.appendChild(texto);
             newDiv.appendChild(parrafo);
+
+            var size = document.createElement("i");
+            var sizeText = document.createTextNode("Grams");
+
+            size.appendChild(sizeText);
+            newDiv.appendChild(size);
 
             result.appendChild(newDiv);
 

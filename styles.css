@@ -80,7 +80,9 @@
 .result div {
   display: block;
   float: left;
-  width: 30%;
+  overflow: hidden;
+  width: 25%;
+  height: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */
